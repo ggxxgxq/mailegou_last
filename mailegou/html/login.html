@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/register.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/login.css"/>
+		<script type="text/javascript" src="../js/out.js"></script>
+		<script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+		<script type="text/javascript" src="../js/cookie1.js"></script>
+	</head>
+	<body>
+		<div class="bodywrap">
+			<div class="top">
+				<a href=""><img src="../img/r_logo.gif" alt="" /></a>
+				<img src="../img/sea_buy.png" alt="" />
+			</div>
+			<div class="main">
+				<img src="../img/register.png" alt=""/>
+				<form class="login"  method="post">
+					<div class="title">
+						<h3>登录</h3>
+						<i>快速免费注册</i>
+					</div>
+					<div class="phone">
+						<input class="phone1" type="text" name="" id="" placeholder="手机号码/邮箱/用户名" />
+					</div>
+					<div class="upwd">
+						<input  class="upwd1" type="text"  name="" id="" placeholder="密码" />
+					</div>
+					<div class="verify">
+						<input class="verify1" type="text" name="" id="" placeholder="验证码" />
+						<p></p>
+						<a >换一张</a>
+					</div>
+					<span class="s4"></span>
+					<a>忘记密码？</a>
+					<input id="btn" type="button" value="登录"/>
+					<b>使用其他方式登录：<a href=""></a></b>
+				</form>
+			</div>
+			<div class="footbox">				
+			</div>
+			<div class="copyright">
+				
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	$(".footbox").load("public.html .footerwrap")
+	$(".copyright").load("public.html .copy")
+	yz();
+	function yz(){		
+		var str ="";
+		for(var i= 0 ;i<4;i++){
+			str += rand(0,9)
+		}
+		
+		$(".verify p").html(str)
+		              .css("color",getColor())
+		
+	}
+	var flagV =null;
+	$(".verify1").blur(function(){
+		if( $(".verify1").val()=="" ){
+			$(".s4").html("请输入验证码")
+		}else{
+			if(  $(".verify p").html() == $(".verify1").val() ){
+				 $(".s4").html("")		    	
+			    flagV =true;
+		    }else{
+		    	 $(".s4").html("验证码有误，请重新输入")		    	
+			    flagV =false;
+		    }
+		}
+		
+	})
+	$("#btn").click(function(){
+		var str = getCookie("usemessage");
+		str =JSON.parse( str );
+		if(flagV && $(".phone1").val()==str.phone && $(".upwd1").val()==str.pwd){
+			alert("登录成功")
+			return true;
+		}else{
+			alert("登陆失败")
+			location.reload();
+			/*return false;*/
+		}
+	})
+</script>
